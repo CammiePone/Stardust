@@ -1,0 +1,17 @@
+item.space_helmet.name=Space Suit Helmet
+item.space_chest.name=Space Suit Chestplate
+item.space_leggings.name=Space Suit Leggings
+item.space_boots.name=Space Suit Boots
+
+
+
+tile.alien_beacon.name=Mysterious Beacon
+tile.microfission_reactor.name=Micro-Fission Reactor
+
+
+
+container.microfission_reactor=Micro-Fission Reactor
+
+
+
+death.attack.space_vacuum=%1$s spaced out so hard, they forgot their suit.

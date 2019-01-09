@@ -1,0 +1,16 @@
+[
+{
+  "modid": "stardust",
+  "name": "Project: Stardust",
+  "description": "Venture to the Stars.",
+  "version": "0.0.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Camellias_"],
+  "credits": "The sacrifice of my sanity.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
