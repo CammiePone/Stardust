@@ -36,15 +36,6 @@ public class TileRefinery extends TileEntity implements ITickable
 		}
 	}
 	
-	public void inputEnergy()
-	{
-		if(energyStorage.getEnergyStored() < energyPerTick)
-		{
-			return;
-		}
-		
-	}
-	
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
 	{

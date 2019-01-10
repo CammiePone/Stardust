@@ -48,8 +48,16 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	{
 		if(burnTime <= 0 && isItemFuel(handler.getStackInSlot(0)))
 		{
+			if(handler.getStackInSlot(0).getItem() == ModItems.URANIUM)
+			{
+				burnTime = 6000;
+			}
+			if(handler.getStackInSlot(0).getItem() == ModItems.REFINED_URANIUM)
+			{
+				burnTime = 12000;
+			}
+			
 			handler.getStackInSlot(0).shrink(1);
-			burnTime = 12000;
 		}
 		if(burnTime > 0)
 		{
@@ -112,6 +120,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		else
 		{
 			if(stack.getItem() == ModItems.URANIUM) return 1;
+			if(stack.getItem() == ModItems.REFINED_URANIUM) return 1;
 			
 			return ForgeEventFactory.getItemBurnTime(stack);
 		}
@@ -155,6 +164,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		compound.setTag("Inventory", this.handler.serializeNBT());
 		compound.setInteger("BurnTime", this.burnTime);
+		compound.setInteger("GUIEnergy", this.energy);
 		compound.setString("Name", getDisplayName().toString());
 		compound.setInteger("Energy", energyStorage.getEnergyStored());
 		
@@ -168,6 +178,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
 		this.burnTime = compound.getInteger("BurnTime");
+		this.energy = compound.getInteger("GUIEnergy");
 		this.customName = compound.getString("Name");
 		energyStorage.setEnergy(compound.getInteger("Energy"));
 	}
@@ -180,7 +191,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	
 	public int getEnergyStored()
 	{
-		return energyStorage.getEnergyStored();
+		return this.energyStorage.getEnergyStored();
 	}
 	
 	public int getMaxEnergyStored()
@@ -193,7 +204,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		switch(id)
 		{
 		case 0:
-			return energyStorage.getEnergyStored();
+			return this.energyStorage.getEnergyStored();
 		case 1:
 			return this.burnTime;
 		default:

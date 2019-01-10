@@ -27,4 +27,5 @@ public class ModItems
 	public static final Item SPACE_SUIT_BOOTS = new SpaceSuit(SPACE_SUIT, 1, EntityEquipmentSlot.FEET, "space_boots");
 	
 	public static final Item URANIUM = new ItemUranium("uranium");
+	public static final Item REFINED_URANIUM = new ItemUranium("refined_uranium");
 }
