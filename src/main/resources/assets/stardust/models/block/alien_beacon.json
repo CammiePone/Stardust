@@ -1,9 +1,9 @@
 {
     "parent": "block/block",
 	"textures": {
-		"1": "spacemod:blocks/alien_beacon_bottom",
-		"2": "spacemod:blocks/alien_beacon",
-		"particle": "spacemod:blocks/alien_beacon"
+		"1": "stardust:blocks/alien_beacon_bottom",
+		"2": "stardust:blocks/alien_beacon",
+		"particle": "stardust:blocks/alien_beacon"
 	},
 	
 	"display": {

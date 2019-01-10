@@ -38,6 +38,7 @@ public class SpaceSuit extends ItemArmor implements IHasModel
 		
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
+		this.setCreativeTab(Main.STARDUST_TAB);
 		this.setMaxStackSize(1);
 		
 		ModItems.ITEMS.add(this);

@@ -26,6 +26,9 @@ public class BlockAlienBeacon extends Block implements IHasModel
 		
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
+		this.setCreativeTab(Main.STARDUST_TAB);
+		this.lightOpacity = 1;
+		this.lightValue = 7;
 		this.setHardness(3.0F);
 		
 		ModBlocks.BLOCKS.add(this);

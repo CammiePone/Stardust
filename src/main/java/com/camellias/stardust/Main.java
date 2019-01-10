@@ -2,9 +2,11 @@ package com.camellias.stardust;
 
 import java.io.File;
 
+import com.camellias.stardust.common.tabs.StardustTab;
 import com.camellias.stardust.proxy.CommonProxy;
 import com.camellias.stardust.utils.handlers.RegistryHandler;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -26,6 +28,8 @@ public class Main
 	
 	@Instance
 	public static Main instance;
+	
+	public static final CreativeTabs STARDUST_TAB = new StardustTab("stardustTab");
 	
 	//Proxy
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)

@@ -1,5 +1,6 @@
 package com.camellias.stardust.common.tileentities;
 
+import com.camellias.stardust.init.ModItems;
 import com.camellias.stardust.utils.energy.StardustForgeEnergyStorage;
 
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -24,7 +26,6 @@ import net.minecraftforge.items.ItemStackHandler;
 public class TileMicroFissionReactor extends TileEntity implements ITickable
 {
 	public int capacity = 10240000;
-	public int generatePerTick = 256;
 	public int maxInput = 0;
 	public StardustForgeEnergyStorage energyStorage = new StardustForgeEnergyStorage(capacity, maxInput);
 	public int energy = energyStorage.getEnergyStored();
@@ -38,12 +39,12 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	{
 		if(!world.isRemote)
 		{
-			generate();
-			output();
+			generateEnergy(256);
+			outputEnergy(256);
 		}
 	}
 	
-	public void generate()
+	public void generateEnergy(int maxGeneration)
 	{
 		if(burnTime <= 0 && isItemFuel(handler.getStackInSlot(0)))
 		{
@@ -52,12 +53,12 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		}
 		if(burnTime > 0)
 		{
-			energyStorage.generateEnergy(generatePerTick);
+			energyStorage.generateEnergy(maxGeneration);
 			burnTime--;
 		}
 	}
 	
-	public void output()
+	public void outputEnergy(int maxOutput)
 	{
 		if(energyStorage.getEnergyStored() > 0)
 		{
@@ -71,7 +72,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
                     
                     if(handler != null && handler.canReceive())
                     {
-                        int accepted = handler.receiveEnergy(energyStorage.getEnergyStored(), false);
+                        int accepted = handler.receiveEnergy(maxOutput, false);
                         energyStorage.consumeEnergy(accepted);
                         
                         if(energyStorage.getEnergyStored() <= 0)
@@ -110,9 +111,9 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		}
 		else
 		{
-			if(stack.getItem() == Items.DIAMOND) return 1;
+			if(stack.getItem() == ModItems.URANIUM) return 1;
 			
-			return GameRegistry.getFuelValue(stack);
+			return ForgeEventFactory.getItemBurnTime(stack);
 		}
 	}
 
@@ -154,7 +155,6 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		compound.setTag("Inventory", this.handler.serializeNBT());
 		compound.setInteger("BurnTime", this.burnTime);
-		compound.setInteger("GUIEnergy", energyStorage.getEnergyStored());
 		compound.setString("Name", getDisplayName().toString());
 		compound.setInteger("Energy", energyStorage.getEnergyStored());
 		
@@ -168,7 +168,6 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
 		this.burnTime = compound.getInteger("BurnTime");
-		energyStorage.setEnergy(compound.getInteger("GUIEnergy"));
 		this.customName = compound.getString("Name");
 		energyStorage.setEnergy(compound.getInteger("Energy"));
 	}

@@ -3,14 +3,21 @@ item.space_chest.name=Space Suit Chestplate
 item.space_leggings.name=Space Suit Leggings
 item.space_boots.name=Space Suit Boots
 
+item.uranium.name=Uranium
+
 
 
 tile.alien_beacon.name=Mysterious Beacon
 tile.microfission_reactor.name=Micro-Fission Reactor
+tile.refinery.name=Refinery
 
 
 
 container.microfission_reactor=Micro-Fission Reactor
+
+
+
+itemGroup.stardustTab=Project: Stardust
 
 
 

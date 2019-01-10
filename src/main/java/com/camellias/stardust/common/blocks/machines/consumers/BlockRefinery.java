@@ -1,12 +1,15 @@
 package com.camellias.stardust.common.blocks.machines.consumers;
 
+import com.camellias.stardust.Main;
 import com.camellias.stardust.common.tileentities.TileRefinery;
 import com.camellias.stardust.init.ModBlocks;
 import com.camellias.stardust.init.ModItems;
+import com.camellias.stardust.utils.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -14,7 +17,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockRefinery extends Block
+public class BlockRefinery extends Block implements IHasModel
 {
 	public BlockRefinery(String name, Material material)
 	{
@@ -22,6 +25,7 @@ public class BlockRefinery extends Block
 		
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
+		this.setCreativeTab(Main.STARDUST_TAB);
 		this.setHardness(3.0F);
 		
 		ModBlocks.BLOCKS.add(this);
@@ -86,5 +90,11 @@ public class BlockRefinery extends Block
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.TRANSLUCENT;
+	}
+	
+	@Override
+	public void registerModels() 
+	{
+		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.camellias.stardust.Reference;
+import com.camellias.stardust.common.items.ItemUranium;
 import com.camellias.stardust.common.items.armour.SpaceSuit;
 
 import net.minecraft.init.SoundEvents;
@@ -24,4 +25,6 @@ public class ModItems
 	public static final Item SPACE_SUIT_CHEST = new SpaceSuit(SPACE_SUIT, 1, EntityEquipmentSlot.CHEST, "space_chest");
 	public static final Item SPACE_SUIT_LEGS = new SpaceSuit(SPACE_SUIT, 2, EntityEquipmentSlot.LEGS, "space_leggings");
 	public static final Item SPACE_SUIT_BOOTS = new SpaceSuit(SPACE_SUIT, 1, EntityEquipmentSlot.FEET, "space_boots");
+	
+	public static final Item URANIUM = new ItemUranium("uranium");
 }

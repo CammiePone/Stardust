@@ -33,7 +33,7 @@ public class GuiMicroFissionReactor extends GuiContainer
 		
 		if(mouseX > guiLeft + 150 && mouseX < guiLeft + 169 && mouseY > guiTop + 5 && mouseY < guiTop + 82)
 		{
-            drawHoveringText(Collections.singletonList(tileentity.getEnergyStored() + " FE"), mouseX, mouseY, fontRenderer);
+			drawHoveringText(Collections.singletonList(tileentity.energy + " FE"), mouseX, mouseY, fontRenderer);
 		}
 	}
 	
@@ -49,14 +49,14 @@ public class GuiMicroFissionReactor extends GuiContainer
 		this.fontRenderer.drawString(String.format("%.1f", depletedPercent) + "%", 67, 35, 2686720);
 		this.fontRenderer.drawString(" Reactive", 93, 35, 2686720);
 		
-		if(this.tileentity.getEnergyStored() < 1000000)
+		if(this.tileentity.energy < 1000000)
 		{
-			this.fontRenderer.drawString(String.format("%.2f", this.tileentity.getEnergyStored() / 1_000F), 87, 56, 2686720);
+			this.fontRenderer.drawString(String.format("%.2f", this.tileentity.energy / 1_000F), 87, 56, 2686720);
 			this.fontRenderer.drawString(" kFE", 119, 56, 2686720);
 		}
-		if(this.tileentity.getEnergyStored() >= 1000000)
+		if(this.tileentity.energy >= 1000000)
 		{
-			this.fontRenderer.drawString(String.format("%.3f", this.tileentity.getEnergyStored() / 1_000_000F), 87, 56, 2686720);
+			this.fontRenderer.drawString(String.format("%.3f", this.tileentity.energy / 1_000_000F), 87, 56, 2686720);
 			this.fontRenderer.drawString(" mFE", 118, 56, 2686720);
 		}
 	}
@@ -74,8 +74,8 @@ public class GuiMicroFissionReactor extends GuiContainer
 	
 	private int getEnergyStoredScaled(int pixels)
 	{
-		int i = this.tileentity.getEnergyStored();
-		int j = this.tileentity.getMaxEnergyStored();
+		int i = this.tileentity.energy;
+		int j = this.tileentity.capacity;
 		return i != 0 && j != 0 ? i * pixels / j : 0; 
 	}
 }
