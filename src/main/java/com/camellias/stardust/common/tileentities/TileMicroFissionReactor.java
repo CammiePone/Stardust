@@ -28,6 +28,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	public int maxInput = 0;
 	public StardustForgeEnergyStorage energyStorage = new StardustForgeEnergyStorage(capacity, maxInput);
 	public int energy = energyStorage.getEnergyStored();
+	private int clientEnergy = -1;
 	private String customName;
 	
 	public ItemStackHandler handler = new ItemStackHandler(1);
@@ -38,26 +39,27 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	{
 		if(!world.isRemote)
 		{
-			generateEnergy();
-			outputEnergy();
+			generate();
+			//energyStorage.generateEnergy(generatePerTick);
+			output();
 		}
 	}
 	
-	public void generateEnergy()
+	public void generate()
 	{
-		if(this.isBurning() == false && isItemFuel(handler.getStackInSlot(0)) && energy <= (capacity - generatePerTick))
+		if(burnTime <= 0 && isItemFuel(handler.getStackInSlot(0)))
 		{
 			handler.getStackInSlot(0).shrink(1);
 			burnTime = 12000;
 		}
-		if(this.isBurning() == true && energy <= capacity - generatePerTick)
+		if(burnTime > 0)
 		{
-			energy += generatePerTick;
+			energyStorage.generateEnergy(generatePerTick);
 			burnTime--;
 		}
 	}
 	
-	public void outputEnergy()
+	public void output()
 	{
 		if(energyStorage.getEnergyStored() > 0)
 		{
@@ -85,6 +87,16 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
             markDirty();
 		}
 	}
+	
+	public int getClientEnergy()
+	{
+        return clientEnergy;
+    }
+	
+    public void setClientEnergy(int clientEnergy)
+    {
+        this.clientEnergy = clientEnergy;
+    }
 	
 	@Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
@@ -154,7 +166,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		compound.setTag("Inventory", this.handler.serializeNBT());
 		compound.setInteger("BurnTime", this.burnTime);
-		compound.setInteger("GUIEnergy", this.energy);
+		compound.setInteger("GUIEnergy", energyStorage.getEnergyStored());
 		compound.setString("Name", getDisplayName().toString());
 		compound.setInteger("Energy", energyStorage.getEnergyStored());
 		
@@ -168,7 +180,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		
 		this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
 		this.burnTime = compound.getInteger("BurnTime");
-		this.energy = compound.getInteger("GUIEnergy");
+		energyStorage.setEnergy(compound.getInteger("GUIEnergy"));
 		this.customName = compound.getString("Name");
 		energyStorage.setEnergy(compound.getInteger("Energy"));
 	}
@@ -181,7 +193,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	
 	public int getEnergyStored()
 	{
-		return this.energy;
+		return energyStorage.getEnergyStored();
 	}
 	
 	public int getMaxEnergyStored()
@@ -194,7 +206,7 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		switch(id)
 		{
 		case 0:
-			return this.energy;
+			return energyStorage.getEnergyStored();
 		case 1:
 			return this.burnTime;
 		default:

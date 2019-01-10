@@ -1,22 +1,10 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
-
-# idea
-out
-*.ipr
-*.iws
-*.iml
-.idea
-
-# gradle
-build
-.gradle
-
-# other
-eclipse
-run
+# Ignore everything except specified directories
+/*
+!README.txt
+!/src
+!build.gradle
+!gradle.properties
+!.gitignore
+!/gradle
+!gradlew.bat
+!gradlew
