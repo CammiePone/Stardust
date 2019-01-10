@@ -54,8 +54,8 @@ public class ContainerMicroFissionReactor extends Container
 	public void detectAndSendChanges() 
 	{
 		super.detectAndSendChanges();
-		
-		for(int i = 0; i < this.listeners.size(); ++i) 
+        
+        for(int i = 0; i < this.listeners.size(); ++i) 
 		{
 			IContainerListener listener = (IContainerListener)this.listeners.get(i);
 			if(this.energy != this.tileentity.getField(0)) listener.sendWindowProperty(this, 0, this.tileentity.getField(0));
@@ -98,5 +98,5 @@ public class ContainerMicroFissionReactor extends Container
 		}
 		
 		return stack;
-	}	
+	}
 }

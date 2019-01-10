@@ -1,5 +1,7 @@
 package com.camellias.stardust.client.gui;
 
+import java.util.Collections;
+
 import com.camellias.stardust.Reference;
 import com.camellias.stardust.common.container.ContainerMicroFissionReactor;
 import com.camellias.stardust.common.tileentities.TileMicroFissionReactor;
@@ -28,14 +30,19 @@ public class GuiMicroFissionReactor extends GuiContainer
 		this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, ticks);
 		this.renderHoveredToolTip(mouseX, mouseY);
+		
+		if(mouseX > guiLeft + 150 && mouseX < guiLeft + 169 && mouseY > guiTop + 5 && mouseY < guiTop + 82)
+		{
+            drawHoveringText(Collections.singletonList(tileentity.getEnergyStored() + " FE"), mouseX, mouseY, fontRenderer);
+		}
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) 
 	{
 		float depletedPercent = this.tileentity.burnTime * 0.008333F;
-		
 		String tileName = this.tileentity.getDisplayName().getUnformattedText();
+		
 		this.fontRenderer.drawString(tileName, (this.xSize / 2 - this.fontRenderer.getStringWidth(tileName) / 2) -5, 6, 8421504);
 		this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 7, this.ySize - 96 + 2, 8421504);
 		

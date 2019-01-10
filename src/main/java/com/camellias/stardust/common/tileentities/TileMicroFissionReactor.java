@@ -28,7 +28,6 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 	public int maxInput = 0;
 	public StardustForgeEnergyStorage energyStorage = new StardustForgeEnergyStorage(capacity, maxInput);
 	public int energy = energyStorage.getEnergyStored();
-	private int clientEnergy = -1;
 	private String customName;
 	
 	public ItemStackHandler handler = new ItemStackHandler(1);
@@ -40,7 +39,6 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
 		if(!world.isRemote)
 		{
 			generate();
-			//energyStorage.generateEnergy(generatePerTick);
 			output();
 		}
 	}
@@ -87,16 +85,6 @@ public class TileMicroFissionReactor extends TileEntity implements ITickable
             markDirty();
 		}
 	}
-	
-	public int getClientEnergy()
-	{
-        return clientEnergy;
-    }
-	
-    public void setClientEnergy(int clientEnergy)
-    {
-        this.clientEnergy = clientEnergy;
-    }
 	
 	@Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
