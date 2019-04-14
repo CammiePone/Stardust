@@ -10,8 +10,8 @@ public class Reference
 	public static final String DEPENDENCIES = "required-after:forge@[14.23.5.2768,)";
 		
 	//Proxies
-	public static final String CLIENT_PROXY_CLASS = "com.camellias.stardust.proxy.ClientProxy";
-	public static final String COMMON_PROXY_CLASS = "com.camellias.stardust.proxy.CommonProxy";
+	public static final String CLIENT_PROXY_CLASS = "com.camellias.stardust.core.proxy.ClientProxy";
+	public static final String COMMON_PROXY_CLASS = "com.camellias.stardust.core.proxy.CommonProxy";
 	
 	//GUIs
 	public static final int GUI_MICROFISSION_REACTOR = 0;

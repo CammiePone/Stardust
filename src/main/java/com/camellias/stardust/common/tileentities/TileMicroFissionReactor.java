@@ -1,7 +1,7 @@
 package com.camellias.stardust.common.tileentities;
 
-import com.camellias.stardust.init.ModItems;
-import com.camellias.stardust.utils.energy.StardustForgeEnergyStorage;
+import com.camellias.stardust.core.energy.StardustForgeEnergyStorage;
+import com.camellias.stardust.core.init.ModItems;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,8 +1,8 @@
 package com.camellias.stardust.common.blocks.machines.cables;
 
 import com.camellias.stardust.common.tileentities.TileCable;
-import com.camellias.stardust.init.ModBlocks;
-import com.camellias.stardust.init.ModItems;
+import com.camellias.stardust.core.init.ModBlocks;
+import com.camellias.stardust.core.init.ModItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,25 +20,13 @@ public class BlockCable extends Block
 	{
 		super(material);
 		
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setRegistryName(name);
 		this.setHardness(3.0F);
 		
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 	}
-	
-	/*@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
-		if(!world.isRemote)
-		{
-			player.openGui(Main.instance, Reference.GUI_MICROFISSION_REACTOR, world, pos.getX(), pos.getY(), pos.getZ());
-		}
-		
-		return true;
-	}*/
 	
 	@Override
 	public boolean hasTileEntity(IBlockState state)
@@ -60,10 +48,6 @@ public class BlockCable extends Block
 		super.breakBlock(world, pos, state);
 	}
 	
-	
-	
-	
-	
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state)
 	{
@@ -83,7 +67,7 @@ public class BlockCable extends Block
 	}
 	
 	@Override
-	public BlockRenderLayer getBlockLayer()
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.TRANSLUCENT;
 	}

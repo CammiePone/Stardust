@@ -3,7 +3,7 @@ package com.camellias.stardust.common.world.gen.generators;
 import java.util.Random;
 
 import com.camellias.stardust.Reference;
-import com.camellias.stardust.utils.IStructure;
+import com.camellias.stardust.core.utils.IStructure;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.server.MinecraftServer;

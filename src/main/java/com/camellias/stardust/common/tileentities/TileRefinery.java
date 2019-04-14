@@ -1,6 +1,6 @@
 package com.camellias.stardust.common.tileentities;
 
-import com.camellias.stardust.utils.energy.StardustForgeEnergyStorage;
+import com.camellias.stardust.core.energy.StardustForgeEnergyStorage;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

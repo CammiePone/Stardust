@@ -1,8 +1,8 @@
 package com.camellias.stardust.common.items;
 
 import com.camellias.stardust.Main;
-import com.camellias.stardust.init.ModItems;
-import com.camellias.stardust.utils.IHasModel;
+import com.camellias.stardust.core.init.ModItems;
+import com.camellias.stardust.core.utils.IHasModel;
 
 import net.minecraft.item.Item;
 
@@ -10,7 +10,7 @@ public class ItemUranium extends Item implements IHasModel
 {
 	public ItemUranium(String name)
 	{
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setRegistryName(name);
 		this.setCreativeTab(Main.STARDUST_TAB);
 		

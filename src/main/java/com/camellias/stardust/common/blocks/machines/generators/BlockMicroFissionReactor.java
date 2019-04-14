@@ -5,9 +5,9 @@ import java.util.Random;
 import com.camellias.stardust.Main;
 import com.camellias.stardust.Reference;
 import com.camellias.stardust.common.tileentities.TileMicroFissionReactor;
-import com.camellias.stardust.init.ModBlocks;
-import com.camellias.stardust.init.ModItems;
-import com.camellias.stardust.utils.IHasModel;
+import com.camellias.stardust.core.init.ModBlocks;
+import com.camellias.stardust.core.init.ModItems;
+import com.camellias.stardust.core.utils.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -33,7 +33,7 @@ public class BlockMicroFissionReactor extends Block implements IHasModel
 	{
 		super(material);
 		
-		this.setUnlocalizedName(name);
+		this.setTranslationKey(name);
 		this.setRegistryName(name);
 		this.setCreativeTab(Main.STARDUST_TAB);
 		this.setHardness(3.0F);
@@ -115,7 +115,7 @@ public class BlockMicroFissionReactor extends Block implements IHasModel
 	}
 	
 	@Override
-	public BlockRenderLayer getBlockLayer()
+	public BlockRenderLayer getRenderLayer()
 	{
 		return BlockRenderLayer.SOLID;
 	}

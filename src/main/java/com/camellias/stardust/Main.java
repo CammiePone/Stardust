@@ -3,8 +3,8 @@ package com.camellias.stardust;
 import java.io.File;
 
 import com.camellias.stardust.common.tabs.StardustTab;
-import com.camellias.stardust.proxy.CommonProxy;
-import com.camellias.stardust.utils.handlers.RegistryHandler;
+import com.camellias.stardust.core.handlers.RegistryHandler;
+import com.camellias.stardust.core.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
