@@ -1,8 +1,13 @@
 package com.camellias.stardust.core.handlers;
 
+import java.lang.reflect.Field;
+
 import com.camellias.stardust.Main;
+import com.camellias.stardust.client.renders.entities.misc.RenderSpaceShip;
+import com.camellias.stardust.common.entities.misc.EntitySpaceShip;
 import com.camellias.stardust.core.init.ConfigGenerator;
 import com.camellias.stardust.core.init.ModBlocks;
+import com.camellias.stardust.core.init.ModEntities;
 import com.camellias.stardust.core.init.ModItems;
 import com.camellias.stardust.core.init.ModSmelting;
 import com.camellias.stardust.core.utils.IHasModel;
@@ -12,11 +17,15 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @EventBusSubscriber
 public class RegistryHandler 
@@ -54,30 +63,38 @@ public class RegistryHandler
 		}
 	}
 	
+	@SubscribeEvent
+	public static void registerEntities(Register<EntityEntry> event)
+	{
+		try
+		{
+			for(Field f : ModEntities.class.getFields())
+			{
+				Object obj = f.get(null);
+				
+				if(obj instanceof EntityEntry)
+					event.getRegistry().register((EntityEntry) obj);
+			}
+		}
+		catch(Exception ignored)
+		{
+			
+		}
+	}
+	
 	public static void serverRegistries(FMLServerStartingEvent event)
 	{
 		
 	}
 	
-	public static void otherRegistries()
-	{
-		//ModBiomes.registerBiomes();
-		//GameRegistry.registerWorldGenerator(new WorldGenCustomOres(), 0);
-	}
-	
 	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
-		//ModDimensions.registerDimension();
-		//ModEntities.registerEntities();
-		
-		/*if(event.getSide() == Side.CLIENT)
+		if(event.getSide() == Side.CLIENT)
 		{
-			RenderHandler.registerEntityRenders();
-		}*/
+			RenderingRegistry.registerEntityRenderingHandler(EntitySpaceShip.class, RenderSpaceShip::new);
+		}
 		
 		ConfigGenerator.registerConfig(event);
-		
-		//GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 0);
 	}
 	
 	public static void initRegistries()

@@ -1,28 +1,41 @@
 package com.camellias.stardust.core.init;
 
-import com.camellias.stardust.Main;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.camellias.stardust.Reference;
+import com.camellias.stardust.common.entities.misc.EntitySpaceShip;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
 public class ModEntities 
 {
-	public static void registerEntities()
+	public static int entity_id = 0;
+	
+	public static final EntityEntry SPACESHIP = createEntityEntry(EntitySpaceShip.class, "spaceship");
+	
+	private static EntityEntry createEntityEntry(Class<? extends Entity> clazz, String name)
 	{
-		
+		return EntityEntryBuilder.create().entity(clazz).id(new ResourceLocation(Reference.MODID, name), entity_id++).name(Reference.MODID + "." + name).tracker(128, 1, true).build();
 	}
 	
-	private static void registerEntity(String name, Class<? extends Entity> entity, int id, int range, int colour1, int colour2)
+	private static EntityEntry createEntityEntry(Class<? extends Entity> clazz, String name, int solidColor, int spotColor)
 	{
-		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID + ":" + name), 
-				entity, name, id, Main.instance, range, 1, true, colour1, colour2);
+		return EntityEntryBuilder.create().entity(clazz).id(new ResourceLocation(Reference.MODID, name), entity_id++).name(Reference.MODID + "." + name).tracker(64, 1, true).egg(solidColor, spotColor).build();
 	}
 	
-	private static void registerEntityNoEgg(String name, Class<? extends Entity> entity, int id, int range)
+	private static EntityEntry createEntityEntry(Class<? extends Entity> clazz, String name, int solidColor, int spotColor, EnumCreatureType type, int weight, int min, int max, List<String> types)
 	{
-		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MODID + ":" + name), 
-				entity, name, id, Main.instance, range, 1, true);
+		Set<Biome> biomes = new HashSet<>();
+		for(String typeName : types) biomes.addAll(BiomeDictionary.getBiomes(Type.getType(typeName)));
+		return EntityEntryBuilder.create().entity(clazz).id(new ResourceLocation(Reference.MODID, name), entity_id++).name(Reference.MODID + "." + name).tracker(64, 1, true).egg(solidColor, spotColor).spawn(type, weight, min, max, biomes).build();
 	}
 }

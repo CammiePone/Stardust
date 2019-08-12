@@ -111,22 +111,25 @@ public class ModelSpaceSuit extends ModelBiped
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
     {
-    	this.bipedHead.showModel = slot == EntityEquipmentSlot.HEAD;
-		this.bipedHeadwear.showModel = slot == EntityEquipmentSlot.HEAD;
+    	this.HeadWear.showModel = slot == EntityEquipmentSlot.HEAD;
 		
-		this.bipedBody.showModel = slot == EntityEquipmentSlot.CHEST;
-		this.bipedRightArm.showModel = slot == EntityEquipmentSlot.CHEST;
-		this.bipedLeftArm.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.ChestPlate.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.ChestPlateRightArm.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.ChestPlateLeftArm.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.PackTop.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.PackRight.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.PackLeft.showModel = slot == EntityEquipmentSlot.CHEST;
+		this.PackMiddle.showModel = slot == EntityEquipmentSlot.CHEST;
 		
 		if(slot == EntityEquipmentSlot.LEGS)
 		{
-			this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.LEGS;
-			this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.LEGS;
+			this.RightLeg.showModel = slot == EntityEquipmentSlot.LEGS;
+			this.LeftLeg.showModel = slot == EntityEquipmentSlot.LEGS;
 		}
 		else
 		{
-			this.bipedRightLeg.showModel = slot == EntityEquipmentSlot.FEET;
-			this.bipedLeftLeg.showModel = slot == EntityEquipmentSlot.FEET;
+			this.RightBoot.showModel = slot == EntityEquipmentSlot.FEET;
+			this.LeftBoot.showModel = slot == EntityEquipmentSlot.FEET;
 		}
     	
         super.render(entity, f, f1, f2, f3, f4, f5);

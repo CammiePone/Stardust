@@ -39,7 +39,6 @@ public class Main
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		RegistryHandler.otherRegistries();
 		RegistryHandler.preInitRegistries(event);
 		
 		System.out.println("Double checking the Pre-Launch Checklist...");
