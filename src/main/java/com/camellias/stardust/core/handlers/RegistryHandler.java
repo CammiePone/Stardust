@@ -16,6 +16,7 @@ import com.camellias.stardust.core.utils.OreDictionaryCompatibility;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -91,6 +92,7 @@ public class RegistryHandler
 	{
 		if(event.getSide() == Side.CLIENT)
 		{
+			MinecraftForge.EVENT_BUS.register(new InputHandler());
 			RenderingRegistry.registerEntityRenderingHandler(EntitySpaceShip.class, RenderSpaceShip::new);
 		}
 		

@@ -29,8 +29,8 @@ public class RenderSpaceShip extends Render<EntitySpaceShip>
 	public void doRender(EntitySpaceShip entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y + 1.5D, z + 1D);
-		GlStateManager.rotate(180.0F - (entityYaw), 0.0F, 1.0F, 0.0F);
+		GlStateManager.translate(x, y, z);
+		GlStateManager.rotate(180F - (entityYaw), 0F, 1F, 0F);
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		bindEntityTexture(entity);
 		MODEL.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);

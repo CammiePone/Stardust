@@ -1,21 +1,27 @@
 package com.camellias.stardust.common.entities.misc;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntitySpaceShip extends Entity
 {
-	Entity rider = getControllingPassenger();
+	private float momentum;
+	private float deltaRotation;
+	private boolean leftInputDown;
+	private boolean rightInputDown;
+	private boolean forwardInputDown;
+	private boolean backInputDown;
+	private boolean jumpInputDown;
 	
 	public EntitySpaceShip(World world)
 	{
@@ -39,16 +45,40 @@ public class EntitySpaceShip extends Entity
 	}
 	
 	@Override
+	public AxisAlignedBB getRenderBoundingBox()
+	{
+		return getEntityBoundingBox().grow(2D);
+	}
+	
+	@Override
+	public void onCollideWithPlayer(EntityPlayer player)
+	{
+		super.onCollideWithPlayer(player);
+		if(getControllingPassenger() == null) player.startRiding(this);
+	}
+	
+	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
 	{
-		if(!world.isRemote && !isBeingRidden()) player.startRiding(this);
-		return super.processInitialInteract(player, hand);
+		if(player.isSneaking())
+		{
+			return false;
+		}
+		else
+		{
+			if(!world.isRemote && !isBeingRidden())
+			{
+				player.startRiding(this);
+			}
+			
+			return true;
+		}
 	}
 	
 	@Override
 	public double getMountedYOffset()
 	{
-		return super.getMountedYOffset();
+		return 2.75D;
 	}
 	
 	@Override
@@ -72,74 +102,115 @@ public class EntitySpaceShip extends Entity
 	public void onUpdate()
 	{
 		super.onUpdate();
+		
 		if(getControllingPassenger() != null)
 		{
-			motionX = rider.motionX;
-			motionZ = rider.motionZ;
-			if(rider.rotationPitch > rotationPitch + 25) rider.rotationPitch = (rotationPitch + 25);
-			if(rider.rotationPitch < rotationPitch - 25) rider.rotationPitch = (rotationPitch - 25);
-			if(rider.rotationYaw > rotationYaw + 15) rider.rotationYaw = (rotationYaw + 15);
-			if(rider.rotationYaw < rotationYaw - 15) rider.rotationYaw = (rotationYaw - 15);
+			//updateMotion();
+			if(world.isRemote) controlSpaceShip();
+			move(MoverType.SELF, motionX, motionY, motionZ);
+		}
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void applyOrientationToEntity(Entity entityToUpdate)
+	{
+		//applyYawToEntity(entityToUpdate);
+	}
+	
+	@Override
+	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotIncr, boolean teleport)
+	{
+		super.setPositionAndRotationDirect(x, y, z, yaw, pitch, posRotIncr, teleport);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void updateInputs(boolean forwardDown, boolean backDown, boolean leftDown, boolean rightDown, boolean jumpDown)
+	{
+		leftInputDown = leftDown;
+		rightInputDown = rightDown;
+		forwardInputDown = forwardDown;
+		backInputDown = backDown;
+		jumpInputDown = jumpDown;
+	}
+	
+	protected void applyYawToEntity(Entity entityToUpdate)
+	{
+		entityToUpdate.setRenderYawOffset(rotationYaw);
+		float yawWrap = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - rotationYaw);
+		float yawClamp = MathHelper.clamp(yawWrap, -90.0F, 90.0F);
+		entityToUpdate.prevRotationYaw += yawClamp - yawWrap;
+		entityToUpdate.rotationYaw += yawClamp - yawWrap;
+		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+	}
+	
+	private void updateMotion()
+	{
+		momentum = 0.75F;
+		
+		motionX *= (double)momentum;
+		motionZ *= (double)momentum;
+		deltaRotation *= momentum;
+	}
+	
+	private void controlSpaceShip()
+	{
+		if(isBeingRidden())
+		{
+			float forwardMomentum = 0.0F;
+			float upwardMomentum = 0.0F;
 			
-			if(rider instanceof EntityPlayer)
+			if(leftInputDown)
 			{
-				GameSettings settings = Minecraft.getMinecraft().gameSettings;
+				--deltaRotation;
+			}
+			
+			if(rightInputDown)
+			{
+				++deltaRotation;
+			}
+			
+			if(rightInputDown != leftInputDown && !forwardInputDown && !backInputDown)
+			{
+				forwardMomentum += 0.005F;
+			}
+			
+			rotationYaw += deltaRotation;
+			
+			if(forwardInputDown)
+			{
+				forwardMomentum += 0.04F;
 				
-				if(isAirBorne)
+				if(jumpInputDown)
 				{
-					if(settings.isKeyDown(settings.keyBindJump))
-					{
-						motionY = MathHelper.clamp(motionY += 0.2D, -2D, 2D);
-						rotationPitch = MathHelper.clamp(rotationPitch++, -90, 90);
-					}
-					else
-					{
-						motionY = MathHelper.clamp(motionY -= 0.2D, -2D, 2D);
-						rotationPitch = MathHelper.clamp(rotationPitch--, -90, 90);
-					}
-					
-					if(settings.isKeyDown(settings.keyBindRight))
-					{
-						rotationYaw = MathHelper.clamp(rotationYaw--, -30, 30);
-					}
-					
-					if(settings.isKeyDown(settings.keyBindLeft))
-					{
-						rotationYaw = MathHelper.clamp(rotationYaw++, -30, 30);
-					}
-				}
-				else if(onGround)
-				{
-					motionY = 0;
-					rotationPitch = 0;
+					upwardMomentum += 0.04F;
 				}
 			}
+			else if(!(jumpInputDown && forwardInputDown))
+			{
+				upwardMomentum -= 0.04F;
+			}
+			
+			if(backInputDown)
+			{
+				forwardMomentum -= 0.005F;
+			}
+			
+			motionX += (double)(MathHelper.sin(-rotationYaw * 0.017453292F) * forwardMomentum);
+			motionY += (double)(MathHelper.sin(-rotationPitch * 0.017453292F) * upwardMomentum);
+			motionZ += (double)(MathHelper.cos(rotationYaw * 0.017453292F) * forwardMomentum);
 		}
-		
-		move(MoverType.SELF, motionX, motionY, motionZ);
 	}
 	
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound nbt)
 	{
-		if(nbt.hasKey("posX")) posX = nbt.getDouble("posX");
-		if(nbt.hasKey("posY")) posY = nbt.getDouble("posY");
-		if(nbt.hasKey("posZ")) posZ = nbt.getDouble("posZ");
 		
-		if(nbt.hasKey("motionX")) motionX = nbt.getDouble("motionX");
-		if(nbt.hasKey("motionY")) motionY = nbt.getDouble("motionY");
-		if(nbt.hasKey("motionZ")) motionZ = nbt.getDouble("motionZ");
 	}
 	
 	@Override
 	protected void writeEntityToNBT(NBTTagCompound nbt)
 	{
-		nbt.setDouble("posX", posX);
-		nbt.setDouble("posY", posY);
-		nbt.setDouble("posZ", posZ);
 		
-		nbt.setDouble("motionX", motionX);
-		nbt.setDouble("motionY", motionY);
-		nbt.setDouble("motionZ", motionZ);
 	}
 }
