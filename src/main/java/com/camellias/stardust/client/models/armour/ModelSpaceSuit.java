@@ -58,11 +58,11 @@ public class ModelSpaceSuit extends ModelBiped
         this.RightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.RightLeg.addBox(-2.0F, 0.1F, -2.0F, 4, 12, 4, 0.3F);
         
-        this.LeftBoot = new ModelRenderer(this, 48, 32);
+        this.LeftBoot = new ModelRenderer(this, 48, 48);
         this.LeftBoot.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.LeftBoot.addBox(-2.0F, 7.5F, -2.0F, 4, 5, 4, 0.5F);
         
-        this.RightBoot = new ModelRenderer(this, 48, 48);
+        this.RightBoot = new ModelRenderer(this, 48, 32);
         this.RightBoot.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.RightBoot.addBox(-2.0F, 7.5F, -2.0F, 4, 5, 4, 0.5F);
         
