@@ -1,6 +1,67 @@
-item.space_helmet.name=Space Suit Helmet
-item.space_chest.name=Space Suit Chestplate
-item.space_leggings.name=Space Suit Leggings
+item.space_helmet_white.name=White Space Suit Helmet
+item.space_chest_white.name=White Space Suit Chestplate
+item.space_leggings_white.name=White Space Suit Leggings
+
+item.space_helmet_orange.name=Orange Space Suit Helmet
+item.space_chest_orange.name=Orange Space Suit Chestplate
+item.space_leggings_orange.name=Orange Space Suit Leggings
+
+item.space_helmet_magenta.name=Magenta Space Suit Helmet
+item.space_chest_magenta.name=Magenta Space Suit Chestplate
+item.space_leggings_magenta.name=Magenta Space Suit Leggings
+
+item.space_helmet_light_blue.name=Light Blue Space Suit Helmet
+item.space_chest_light_blue.name=Light Blue Space Suit Chestplate
+item.space_leggings_light_blue.name=Light Blue Space Suit Leggings
+
+item.space_helmet_yellow.name=Yellow Space Suit Helmet
+item.space_chest_yellow.name=Yellow Space Suit Chestplate
+item.space_leggings_yellow.name=Yellow Space Suit Leggings
+
+item.space_helmet_lime.name=Lime Space Suit Helmet
+item.space_chest_lime.name=Lime Space Suit Chestplate
+item.space_leggings_lime.name=Lime Space Suit Leggings
+
+item.space_helmet_pink.name=Pink Space Suit Helmet
+item.space_chest_pink.name=Pink Space Suit Chestplate
+item.space_leggings_pink.name=Pink Space Suit Leggings
+
+item.space_helmet_grey.name=Grey Space Suit Helmet
+item.space_chest_grey.name=Grey Space Suit Chestplate
+item.space_leggings_grey.name=Grey Space Suit Leggings
+
+item.space_helmet_light_grey.name=Light Grey Space Suit Helmet
+item.space_chest_light_grey.name=Light Grey Space Suit Chestplate
+item.space_leggings_light_grey.name=Light Grey Space Suit Leggings
+
+item.space_helmet_cyan.name=Cyan Space Suit Helmet
+item.space_chest_cyan.name=Cyan Space Suit Chestplate
+item.space_leggings_cyan.name=Cyan Space Suit Leggings
+
+item.space_helmet_purple.name=Purple Space Suit Helmet
+item.space_chest_purple.name=Purple Space Suit Chestplate
+item.space_leggings_purple.name=Purple Space Suit Leggings
+
+item.space_helmet_blue.name=Blue Space Suit Helmet
+item.space_chest_blue.name=Blue Space Suit Chestplate
+item.space_leggings_blue.name=Blue Space Suit Leggings
+
+item.space_helmet_brown.name=Brown Space Suit Helmet
+item.space_chest_brown.name=Brown Space Suit Chestplate
+item.space_leggings_brown.name=Brown Space Suit Leggings
+
+item.space_helmet_green.name=Green Space Suit Helmet
+item.space_chest_green.name=Green Space Suit Chestplate
+item.space_leggings_green.name=Green Space Suit Leggings
+
+item.space_helmet_red.name=Red Space Suit Helmet
+item.space_chest_red.name=Red Space Suit Chestplate
+item.space_leggings_red.name=Red Space Suit Leggings
+
+item.space_helmet_black.name=Black Space Suit Helmet
+item.space_chest_black.name=Black Space Suit Chestplate
+item.space_leggings_black.name=Black Space Suit Leggings
+
 item.space_boots.name=Space Suit Boots
 
 item.uranium.name=Uranium
